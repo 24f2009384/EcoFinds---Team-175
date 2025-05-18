@@ -18,7 +18,6 @@
             <p><strong>Description:</strong> {{ product.description }}</p>
             <p><strong>Location:</strong> {{ product.city }}</p>
             <p><strong>Posted on:</strong> {{ product.date_added.strftime('%B %d, %Y %I:%M %p') }}</p>
-            <a href="{{ url_for('add_to_cart', product_id=product.id) }}" class="btn btn-success">Add to Cart</a>
             <a href="{{ url_for('index') }}" class="btn btn-primary mt-3">Back to Products</a>
             <a href="{{ url_for('edit_product', product_id=product.id) }}" class="btn btn-secondary mt-3">Edit Product</a>
             <a href="{{ url_for('delete_product', product_id=product.id) }}" class="btn btn-danger mt-3">Delete Product</a>
