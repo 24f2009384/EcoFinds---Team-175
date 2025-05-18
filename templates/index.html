@@ -11,19 +11,22 @@
     <button class="btn btn-light rounded-pill px-4">Home Appliances</button>
     <button class="btn btn-light rounded-pill px-4">Fashion</button>
     <button class="btn btn-light rounded-pill px-4">Books</button>
-    
 </div>
 
 <h3 class="fw-bold my-4">Fresh Recommendations</h3>
 <div class="row gy-4">
     {% for item in items %}
     <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-            <img src="{{ item.image_url or url_for('static', filename='assests/placeholder.png') }}" class="card-img-top" alt="Product Image" />
-            <div class="card-body">
+        <div class="card h-100 shadow-sm d-flex flex-column">
+            <img src="{{ item.image_url or url_for('static', filename='assets/placeholder.png') }}" class="card-img-top" alt="Product Image" />
+            <div class="card-body d-flex flex-column">
                 <h5 class="card-title fw-bold">₹ {{ item.price }}</h5>
                 <p class="card-text">{{ item.title }}</p>
                 <small class="text-muted">{{ item.location }}</small>
+                <div class="mt-auto d-grid gap-2">
+                    <a href="{{ url_for('static_product_details', product_id=item.id) }}" class="btn btn-primary btn-sm">View Details</a>
+                    <a href="{{ url_for('add_static_to_cart', product_id=item.id) }}" class="btn btn-success btn-sm">Add to Cart</a>
+                </div>
             </div>
         </div>
     </div>

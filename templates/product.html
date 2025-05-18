@@ -18,7 +18,7 @@
             <p><strong>Description:</strong> {{ product.description }}</p>
             <p><strong>Location:</strong> {{ product.city }}</p>
             <p><strong>Posted on:</strong> {{ product.date_added.strftime('%B %d, %Y %I:%M %p') }}</p>
-            <a href="{{ url_for('profile') }}" class="btn btn-primary mt-3">Back to Products</a>
+            <a href="{{ url_for('index') }}" class="btn btn-primary mt-3">Back to Products</a>
         </div>
     </div>
 </div>
