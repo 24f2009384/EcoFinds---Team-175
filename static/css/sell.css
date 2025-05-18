@@ -1,0 +1,61 @@
+/* Sell Form Container */
+.container {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+/* Form Headline */
+.container h2 {
+    color: #0c6724;
+    font-weight: 700;
+}
+
+/* Form Labels */
+.form-label {
+    font-weight: 600;
+    color: #333;
+}
+
+/* Inputs and Textarea */
+.form-control {
+    border-radius: 8px;
+    padding: 10px 14px;
+    border: 1px solid #ccc;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #0c6724;
+    box-shadow: 0 0 5px rgba(12, 103, 36, 0.3);
+}
+
+/* Submit Button */
+.btn-primary {
+    background-color: #0c6724;
+    border: none;
+    padding: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border-radius: 8px;
+}
+
+.btn-primary:hover {
+    background-color: #09551e;
+    transform: scale(1.02);
+}
+
+/* Image Preview Styling */
+#imagePreview {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 8px;
+    border: 2px solid #0c6724;
+}
+
+/* Optional: Improve spacing below image preview */
+.img-thumbnail {
+    margin-top: 10px;
+}
