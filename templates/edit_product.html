@@ -2,6 +2,107 @@
 {% block title %}Edit Product{% endblock %}
 
 {% block content %}
+
+<style>
+/* General Body and Typography */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f3f9f4;
+    color: #333;
+}
+
+/* Headings */
+h1 {
+    font-weight: 700;
+    color: #2b5b3d;
+}
+
+/* Form Controls */
+.form-control {
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+/* File Input Styling */
+input[type="file"] {
+    background-color: #e8f5e9;
+    border-radius: 6px;
+    padding: 8px;
+}
+
+/* Buttons */
+.btn-success {
+    background-color: #28a745;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+.btn-primary {
+    background-color: #0c6724;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #09551e;
+    transform: scale(1.02);
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    transform: scale(1.02);
+}
+
+/* Card Styling (reused if needed later) */
+.card {
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+}
+
+.card-title {
+    font-weight: 600;
+    color: #333;
+}
+
+.card-text {
+    font-size: 0.95rem;
+}
+
+/* Price Text */
+.card-text:first-of-type {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #28a745;
+}
+
+/* Image Preview */
+.img-thumbnail {
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    padding: 4px;
+    max-width: 200px;
+    margin-top: 10px;
+}
+
+</style>
 <div class="container mt-5">
     <h1 class="text-center">Edit Product</h1>
     <form method="POST" enctype="multipart/form-data">

@@ -2,6 +2,85 @@
 {% block title %}Edit Profile{% endblock %}
 
 {% block content %}
+<style>
+/* General spacing and typography */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1 {
+    font-weight: 700;
+    color: #2b5b3d;
+}
+
+/* Sell Button */
+.btn-success {
+    background-color: #28a745;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+/* Card Styling */
+.card {
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+}
+
+.card-title {
+    font-weight: 600;
+    color: #333;
+}
+
+.card-text {
+    font-size: 0.95rem;
+}
+
+/* Product price styling */
+.card-text:first-of-type {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #28a745;
+}
+
+/* View Details Button */
+.btn-primary {
+    background-color: #0c6724;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #09551e;
+    transform: scale(1.02);
+}
+
+/* Ensure consistent height and spacing */
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Image responsiveness */
+.card-img-top {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+</style>
+
+
 <div class="container mt-5">
     <h1 class="text-center">Edit Profile</h1>
     <form method="POST" action="{{ url_for('edit_profile') }}" enctype="multipart/form-data">
