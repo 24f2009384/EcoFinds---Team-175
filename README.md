@@ -36,8 +36,6 @@ This repository contains the foundational prototype developed for the EcoFinds c
 •Track previous purchases
 
 🛠 Tech Stack
-•Backend: 
-•Database: 
-•Authentication:
-•Media Storage: 
-•Frontend (Optional): 
+•Backend:Python, Flask, SQLAlchemy
+•Database: SQLLite
+•Frontend (Optional): HTML,CSS
