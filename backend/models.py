@@ -31,7 +31,7 @@ class Product(db.Model):
     date_added = db.Column(db.DateTime, nullable=False)
     
     # relationships
-    user = db.relationship('User', backref=db.backref('products', lazy=True), cascade="all, delete-orphan")
+    user = db.relationship('User', backref=db.backref('products', lazy=True))
     
     def __repr__(self):
         return f'<Product {self.name}>'
@@ -42,8 +42,8 @@ class PreviousPurchase(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     product_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False)
     
-    user = db.relationship('User', backref=db.backref('previous_purchases', lazy=True), cascade="all, delete-orphan")
-    product = db.relationship('Product', backref=db.backref('previous_purchases', lazy=True), cascade="all, delete-orphan")
+    user = db.relationship('User', backref=db.backref('previous_purchases', lazy=True))
+    product = db.relationship('Product', backref=db.backref('previous_purchases', lazy=True))
     
     def __repr__(self):
         return f'<PreviousPurchase {self.user.username} - {self.product.name}>'
@@ -54,9 +54,9 @@ class Cart(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     product_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False)
     
-    user = db.relationship('User', backref=db.backref('carts', lazy=True), cascade="all, delete-orphan")
+    user = db.relationship('User', backref=db.backref('carts', lazy=True))
     #cascade delete from cart to product
-    product = db.relationship('Product', backref=db.backref('carts', lazy=True), cascade="all, delete-orphan")
+    product = db.relationship('Product', backref=db.backref('carts', lazy=True))
     
     def __repr__(self):
         return f'<Cart {self.user.username} - {self.product.name}>'
