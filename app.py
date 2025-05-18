@@ -18,14 +18,12 @@ def index():
 def about():
     return render_template('about.html')
 
-@app.route('/signup')
+@app.route('/signup', methods=['GET', 'POST'])
 def signup():
-    
     if request.method == 'POST':
         username = request.form['username']
         email = request.form['email']
         password = request.form['password']
-        profile_picture = request.form['profile_picture']
         city = request.form['city']
         phone_number = request.form['phone_number']
         name = request.form['name']
@@ -36,18 +34,18 @@ def signup():
             return redirect(url_for('login'))
         
         # Create a new user
-        new_user = User(username=username, email=email, password=password, profile_picture=profile_picture, city=city, phone_number=phone_number, name=name)
+        new_user = User(username=username, email=email, password=password, city=city, phone_number=phone_number, name=name)
         db.session.add(new_user)
         db.session.commit()
         flash('User created successfully. Please log in.')
         return redirect(url_for('login'))
     return render_template('signup.html')
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     # Check if the user is already logged in
     if User.id in session:
-        return redirect(url_for('index'))
+        return redirect(url_for('profile'))
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
@@ -56,14 +54,37 @@ def login():
         if user:
             session['user_id'] = user.id
             flash('Logged in successfully.')
-            return redirect(url_for('index'))
+            return redirect(url_for('profile'))
         else:
             flash('Invalid email or password.')    
         
     return render_template('login.html')
 
 
+@app.route('/logout')
+def logout():
+    # Remove the user from the session
+    session.pop('user_id', None)
+    flash('Logged out successfully.')
+    return redirect(url_for('index'))
 
+@app.route('/profile')
+def profile():
+    # Check if the user is logged in
+    if 'user_id' not in session:
+        flash('You need to log in first.')
+        return redirect(url_for('login'))   
+    user = User.query.get(session['user_id'])
+    if not user:
+        flash('User not found.')
+        return redirect(url_for('login'))
+    # Get the user's products
+    products = Product.query.filter_by(user_id=user.id).all()
+    # Get the user's previous purchases
+    previous_purchases = PreviousPurchase.query.filter_by(user_id=user.id).all()
+    # Get the user's cart
+    cart = Cart.query.filter_by(user_id=user.id).all()
+    return render_template('profile.html', user=user, products=products, previous_purchases=previous_purchases, cart=cart)
 
 
 if __name__ == '__main__':
