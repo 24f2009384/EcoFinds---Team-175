@@ -1,0 +1,42 @@
+body {
+    background-color: #e9f7f1;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.header-bar {
+    background-color: #1debc8 !important;
+    border-radius: 8px;
+}
+
+.header-bar input {
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+}
+
+.header-bar .btn-info {
+    background-color: #00e5ff;
+    border: none;
+    padding: 0.5rem 1.5rem;
+    border-radius: 50px;
+    color: #000;
+}
+
+.ads-row .btn {
+    font-weight: 500;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+}
+
+.ads-row .btn:hover {
+    background-color: #d1f3e1;
+}
+
+.card {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.card img {
+    height: 200px;
+    object-fit: cover;
+}

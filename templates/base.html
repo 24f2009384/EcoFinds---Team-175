@@ -1,42 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}EcoFinds - Sustainable Second-Hand Marketplace{% endblock %}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}EcoFinds{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    {% block head %}{% endblock %}
 </head>
-
 <body class="bg-success bg-opacity-10">
-    <!-- navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+
+    <!-- DARK GREEN NAVBAR -->
+    <nav class="navbar navbar-expand-lg px-4" style="background-color: #003f3f;">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ url_for('index') }}">EcoFinds</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('index') }}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('about') }}">About</a>
-                    </li>
-                </ul>
-            </div>
+            <a class="navbar-brand text-white fw-bold" href="{{ url_for('index') }}">EcoFinds</a>
+
+            <!-- Search -->
+            <form class="d-flex flex-grow-1 mx-3" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search items..." aria-label="Search">
+            </form>
+
+            <!-- Right links -->
+            <ul class="navbar-nav align-items-center flex-row gap-3">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{{ url_for('about') }}">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('login') }}" class="btn btn-outline-light">Login</a>
+                </li>
+                <li class="nav-item">
+                    <button class="btn btn-info fw-bold">+ SELL</button>
+                </li>
+            </ul>
         </div>
     </nav>
 
-    <!-- main content -->
-    <div class="container mt-4">
-        {% block content %}
-        <h1>Welcome to EcoFinds</h1>
-        <p>Your sustainable second-hand marketplace.</p>
-        {% endblock %}
-    </div>
+    <!-- MAIN BODY -->
+    <main class="container py-4">
+        {% block content %}{% endblock %}
+    </main>
 
-    </body>
+    <script src="{{ url_for('static', filename='js/index.js') }}" defer></script>
+</body>
 </html>

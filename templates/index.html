@@ -1,17 +1,32 @@
 {% extends "base.html" %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Home - EcoFinds{% endblock %}
 
 {% block content %}
-<!-- lead the user to login/signup -->
-<div class="text-center">
-    <h1>Welcome to EcoFinds</h1>
-    <p>Your sustainable second-hand marketplace.</p>
-
-    <p class="lead">Join us in promoting sustainability and reducing waste.</p>
-    <p class="lead">Sign up or log in to start buying and selling second-hand items.</p>
-    <a href="{{ url_for('login') }}" class="btn btn-primary">Log In</a>
-    <a href="{{ url_for('signup') }}" class="btn btn-secondary">Sign Up</a>
+<div class="ads-row my-3 d-flex gap-3 flex-wrap justify-content-center">
+    <button class="btn btn-light rounded-pill px-4">Cars</button>
+    <button class="btn btn-light rounded-pill px-4">Mobile Phones</button>
+    <button class="btn btn-light rounded-pill px-4">Electronics</button>
+    <button class="btn btn-light rounded-pill px-4">Luxury Jewelry Deals</button>
+    <button class="btn btn-light rounded-pill px-4">Home Appliances</button>
+    <button class="btn btn-light rounded-pill px-4">Fashion</button>
+    <button class="btn btn-light rounded-pill px-4">Books</button>
     
+</div>
+
+<h3 class="fw-bold my-4">Fresh Recommendations</h3>
+<div class="row gy-4">
+    {% for item in items %}
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+            <img src="{{ item.image_url or url_for('static', filename='img/placeholder.png') }}" class="card-img-top" alt="Product Image" />
+            <div class="card-body">
+                <h5 class="card-title fw-bold">₹ {{ item.price }}</h5>
+                <p class="card-text">{{ item.title }}</p>
+                <small class="text-muted">{{ item.location }}</small>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
 </div>
 {% endblock %}

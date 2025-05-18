@@ -12,7 +12,45 @@ with app.app_context():
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    items = [
+            {
+                'title': 'Maruti Suzuki Alto 800 - 2022',
+                'price': '4,50,000',
+                'location': 'Jammu',
+                'image_url': '/static/assests/alto.png'  # Place image in static/img/
+            },
+            {
+                'title': 'iPhone 11 128GB',
+                'price': '5,999',
+                'location': 'Maharashtra',
+                'image_url': '/static/assests/iphone11.png'
+            },
+            {
+                'title': 'iPhone 14 Series Sale',
+                'price': '19,876',
+                'location': 'MIDC Maharashtra',
+                'image_url': '/static/assests/iphone14.png'
+            },
+            {
+                'title': 'Samsung Galaxy S21',
+                'price': '1,999',
+                'location': 'Delhi',
+                'image_url': '/static/assests/samsung.png'
+            },
+            {
+                'title': 'Dell Inspiron 15',
+                'price': '45,000',
+                'location': 'Mumbai',
+                'image_url': '/static/assests/dell.png'
+            },
+            {
+                'title': 'HP Pavilion Gaming Laptop',
+                'price': '65,000',
+                'location': 'Bangalore',
+                'image_url': '/static/assests/hp.png'
+            }
+           ]
+    return render_template('index.html', items = items)
 
 @app.route('/about')
 def about():
