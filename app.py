@@ -25,41 +25,42 @@ with app.app_context():
 def index():
     items = [
             {
+                'id': 1,
                 'title': 'Maruti Suzuki Alto 800 - 2022',
                 'price': '4,50,000',
                 'location': 'Jammu',
                 'image_url': '/static/assets/alto.png'  # Place image in static/img/
             },
             {
-                'id': 1,
+                'id': 2,
                 'title': 'iPhone 11 128GB',
                 'price': '5,999',
                 'location': 'Maharashtra',
                 'image_url': '/static/assets/iphone11.png'
             },
             {
-                'id': 2,
+                'id': 3,
                 'title': 'iPhone 14 Series Sale',
                 'price': '19,876',
                 'location': 'MIDC Maharashtra',
                 'image_url': '/static/assets/iphone14.png'
             },
             {
-                'id': 3,
+                'id': 4,
                 'title': 'Samsung Galaxy S21',
                 'price': '1,999',
                 'location': 'Delhi',
                 'image_url': '/static/assets/samsung.png'
             },
             {
-                'id': 4,
+                'id': 5,
                 'title': 'Dell Inspiron 15',
                 'price': '45,000',
                 'location': 'Mumbai',
                 'image_url': '/static/assets/dell.png'
             },
             {
-                'id': 5,
+                'id': 6,
                 'title': 'HP Pavilion Gaming Laptop',
                 'price': '65,000',
                 'location': 'Bangalore',
@@ -76,25 +77,41 @@ def about():
 def signup():
     if request.method == 'POST':
         username = request.form['username']
+        name = request.form['name']
         email = request.form['email']
         password = request.form['password']
         city = request.form['city']
         phone_number = request.form['phone_number']
-        name = request.form['name']
-        # set profile picture
-        profile_picture = request.form['profile_picture']
-        # Check if the email already exists
+        # Check if the user already exists
         existing_user = User.query.filter_by(email=email).first()
         if existing_user:
-            flash('Email already exists. Please log in.')
+            flash('Email already registered. Please log in.')
             return redirect(url_for('login'))
-        
-        # Create a new user
-        new_user = User(username=username, email=email, password=password, city=city, phone_number=phone_number, name=name, profile_picture=profile_picture)
+        file = request.files.get('profile_picture')
+        profile_pic_path = None
+
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            upload_folder = os.path.join(app.root_path, 'static', 'assets')
+            if not os.path.exists(upload_folder):
+                os.makedirs(upload_folder)
+            file.save(os.path.join(upload_folder, filename))
+            profile_pic_path = f'assets/{filename}'
+
+        new_user = User(
+            username=username,
+            name=name,
+            email=email,
+            password=password,
+            city=city,
+            phone_number=phone_number,
+            profile_picture=profile_pic_path  # saved path to DB
+        )
         db.session.add(new_user)
         db.session.commit()
-        flash('User created successfully. Please log in.')
+        flash('Signup successful!')
         return redirect(url_for('login'))
+
     return render_template('signup.html')
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -142,6 +159,44 @@ def profile():
     # Get the user's cart
     cart = Cart.query.filter_by(user_id=user.id).all()
     return render_template('profile.html', user=user, products=products, previous_purchases=previous_purchases, cart=cart, )
+
+@app.route('/edit_profile', methods=['GET', 'POST'])
+def edit_profile():
+    if 'user_id' not in session:
+        flash('You need to log in first.')
+        return redirect(url_for('login'))
+    user = User.query.get(session['user_id'])
+    if request.method == 'POST':
+        user.username = request.form['username']
+        user.email = request.form['email']
+        if request.form['password']:
+            user.password = request.form['password']
+        
+        user.city = request.form['city']
+        
+        user.phone_number = request.form['phone_number']
+        user.name = request.form['name']
+
+        # Handle profile picture upload
+        file = request.files.get('profile_picture')
+        if file and file.filename != '':
+            if allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                save_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+
+                os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+
+                file.save(save_path)
+                user.profile_picture = f'assets/{filename}'
+            else:
+                flash('Please upload a valid image file.')
+                return redirect(request.url)
+            
+            
+        db.session.commit()
+        flash('Profile updated successfully.')
+        return redirect(url_for('profile'))
+    return render_template('edit_profile.html', user=user)
 
 
 @app.route('/sell', methods=['GET', 'POST'])
@@ -200,6 +255,49 @@ def product_details(product_id):
     product = Product.query.get_or_404(product_id)
     return render_template('product.html', product=product)
 
+@app.route('/edit_product/<int:product_id>', methods=['GET', 'POST'])
+def edit_product(product_id):
+    if 'user_id' not in session:
+        flash('You need to log in first.')
+        return redirect(url_for('login'))
+
+    product = Product.query.get_or_404(product_id)
+
+    if request.method == 'POST':
+        product.name = request.form['name']
+        product.description = request.form['description']
+        product.price = request.form['price']
+        product.city = request.form['city']
+
+        file = request.files.get('image_file')
+
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            save_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(save_path)
+            product.image_url = f'assets/{filename}'
+
+        db.session.commit()
+        flash('Product updated successfully.')
+        return redirect(url_for('profile'))
+
+    return render_template('edit_product.html', product=product)
+
+@app.route('/delete_product/<int:product_id>')
+def delete_product(product_id):
+    if 'user_id' not in session:
+        flash('You need to log in first.')
+        return redirect(url_for('login'))
+    product = Product.query.get_or_404(product_id)
+    if product.user_id != session['user_id']:
+        flash('You can only delete your own products.')
+        return redirect(url_for('profile'))
+    db.session.delete(product)
+    db.session.commit()
+    flash('Product deleted successfully.')
+    return redirect(url_for('profile'))
+
+
 @app.route('/add_to_cart/<int:product_id>')
 def add_to_cart(product_id):
     if 'user_id' not in session:
@@ -218,48 +316,6 @@ def add_to_cart(product_id):
         flash('Product added to cart.')
 
     return redirect(url_for('profile'))
-
-@app.route('/add_static_to_cart/<int:product_id>')
-def add_static_to_cart(product_id):
-    if 'user_id' not in session:
-        flash('Please log in first.')
-        return redirect(url_for('login'))
-
-    if 'cart' not in session:
-        session['cart'] = []
-
-    if product_id not in session['cart']:
-        session['cart'].append(product_id)
-        session.modified = True
-        flash('Product added to cart.')
-    else:
-        flash('Product already in cart.')
-
-    return redirect(url_for('index'))
-
-@app.route('/remove_from_cart_static/<int:product_id>')
-def remove_from_cart_static(product_id):
-    if 'user_id' not in session:
-        flash('Please log in first.')
-        return redirect(url_for('login'))
-
-    if 'cart' in session and product_id in session['cart']:
-        session['cart'].remove(product_id)
-        session.modified = True
-        flash('Product removed from cart.')
-    else:
-        flash('Product not found in cart.')
-
-    return redirect(url_for('index'))
-
-@app.route('/static_product_details/<int:product_id>')
-def static_product_details(product_id):
-    if 'user_id' not in session:
-        flash('Please log in first.')
-        return redirect(url_for('login'))
-
-    product = Product.query.get_or_404(product_id)
-    return render_template('static_product.html', product=product)
 
 
 @app.route('/view_cart')
@@ -289,6 +345,22 @@ def remove_from_cart(product_id):
         flash('Product not found in cart.')
 
     return redirect(url_for('view_cart'))
+
+
+# search functionality
+@app.route('/search', methods=['GET'])
+def search():
+    query = request.args.get('query', '').strip()
+    products = []
+
+    if query:
+        products = Product.query.filter(Product.name.ilike(f'%{query}%')).all()
+
+    return render_template('search_results.html', products=products, query=query)
+
+
+
+
 
 
 

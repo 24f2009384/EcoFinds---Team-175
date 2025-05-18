@@ -24,8 +24,6 @@
                 <p class="card-text">{{ item.title }}</p>
                 <small class="text-muted">{{ item.location }}</small>
                 <div class="mt-auto d-grid gap-2">
-                    <a href="{{ url_for('static_product_details', product_id=item.id) }}" class="btn btn-primary btn-sm">View Details</a>
-                    <a href="{{ url_for('add_static_to_cart', product_id=item.id) }}" class="btn btn-success btn-sm">Add to Cart</a>
                 </div>
             </div>
         </div>

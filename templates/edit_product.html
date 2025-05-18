@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Edit Product{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Edit Product</h1>
+    <form method="POST" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="name" class="form-label">Product Name</label>
+            <input type="text" class="form-control" id="name" name="name" value="{{ product.name }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Product Description</label>
+            <textarea class="form-control" id="description" name="description" rows="3" required>{{ product.description }}</textarea>
+        </div>
+        <div class="mb-3">
+            <label for="price" class="form-label">Price</label>
+            <input type="number" class="form-control" id="price" name="price" value="{{ product.price }}" min="0" step="0.01" required>
+        </div>
+        <div class="mb-3">
+            <label for="image_file" class="form-label">Upload New Product Image</label>
+            <input type="file" class="form-control" id="image_file" name="image_file" accept="image/*">
+            {% if product.image_url %}
+                <img src="{{ url_for('static', filename=product.image_url) }}" alt="{{ product.name }}'s image"
+                     class="img-thumbnail mt-3" style="max-width: 200px;">
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <label for="city" class="form-label">City</label>
+            <input type="text" class="form-control" id="city" name="city" value="{{ product.city }}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Product</button>
+        <a href="{{ url_for('product_details', product_id=product.id) }}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+<script>
+    const imageFileInput = document.getElementById('image_file');
+    const imagePreview = document.getElementById('imagePreview');
+
+    imageFileInput.addEventListener('change', function() {
+        const file = this.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block';
+            }
+            reader.readAsDataURL(file);
+        } else {
+            imagePreview.style.display = 'none';
+        }
+    });
+</script>
+{% endblock %}
