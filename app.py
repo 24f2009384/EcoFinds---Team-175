@@ -31,30 +31,35 @@ def index():
                 'image_url': '/static/assets/alto.png'  # Place image in static/img/
             },
             {
+                'id': 1,
                 'title': 'iPhone 11 128GB',
                 'price': '5,999',
                 'location': 'Maharashtra',
                 'image_url': '/static/assets/iphone11.png'
             },
             {
+                'id': 2,
                 'title': 'iPhone 14 Series Sale',
                 'price': '19,876',
                 'location': 'MIDC Maharashtra',
                 'image_url': '/static/assets/iphone14.png'
             },
             {
+                'id': 3,
                 'title': 'Samsung Galaxy S21',
                 'price': '1,999',
                 'location': 'Delhi',
                 'image_url': '/static/assets/samsung.png'
             },
             {
+                'id': 4,
                 'title': 'Dell Inspiron 15',
                 'price': '45,000',
                 'location': 'Mumbai',
                 'image_url': '/static/assets/dell.png'
             },
             {
+                'id': 5,
                 'title': 'HP Pavilion Gaming Laptop',
                 'price': '65,000',
                 'location': 'Bangalore',

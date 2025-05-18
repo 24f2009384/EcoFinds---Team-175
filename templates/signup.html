@@ -2,6 +2,118 @@
 {% block title %}Sign Up{% endblock %}
 
 {% block content %}
+<style>
+  /* General page settings */
+   body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f8f9fa;
+      background-image: url('/static/assets/signup.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+  }
+
+  /* Sign-up container */
+  .container {
+      max-width: 600px;
+      margin: 100px auto;
+      background-color: white;
+      padding: 2.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 128, 0, 0.1);
+  }
+
+  /* Title */
+  h1.text-center {
+      color: #198754;
+      margin-bottom: 2rem;
+      font-weight: 600;
+  }
+
+  /* Input styling */
+  .form-control {
+      border: 1px solid #c3e6cb;
+      border-radius: 6px;
+      padding: 0.5rem 0.75rem;
+      font-size: 1rem;
+      transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .form-control:focus {
+      border-color: #198754;
+      box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25);
+      outline: none;
+  }
+
+  /* Button */
+  .btn-primary {
+      background-color: #198754;
+      border-color: #198754;
+      font-weight: 600;
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 1.1rem;
+      border-radius: 6px;
+      transition: background-color 0.3s, border-color 0.3s;
+  }
+
+  .btn-primary:hover {
+      background-color: #157347;
+      border-color: #146c43;
+  }
+
+  /* Profile picture upload */
+  .mb-3.text-center {
+      position: relative;
+      margin-bottom: 2rem;
+  }
+
+  .mb-3.text-center img {
+      border: 3px solid #198754;
+      border-radius: 50%;
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      transition: filter 0.3s, transform 0.3s;
+      cursor: pointer;
+      display: inline-block;
+  }
+
+  .mb-3.text-center img:hover {
+      filter: brightness(0.9);
+      transform: scale(1.05);
+  }
+
+  /* Camera overlay icon */
+  .mb-3.text-center div {
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
+      background-color: #198754;
+      color: white;
+      border-radius: 50%;
+      padding: 7px;
+      font-size: 18px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.3);
+      pointer-events: none; /* so clicks go to label */
+  }
+
+  /* Responsive tweaks */
+  @media (max-width: 600px) {
+      .container {
+          margin: 50px 20px;
+          padding: 2rem 1.2rem;
+      }
+
+      .mb-3.text-center img {
+          width: 100px;
+          height: 100px;
+      }
+  }
+</style>
+
 <div class="container mt-4">
     <h1 class="text-center">Sign Up</h1>
     <form method="POST" action="{{ url_for('signup') }}" enctype="multipart/form-data">
@@ -12,20 +124,9 @@
                 <img id="preview" 
                      src="https://cdn-icons-png.flaticon.com/512/149/149071.png" 
                      alt="Profile Picture" 
-                     class="rounded-circle" 
-                     style="width: 120px; height: 120px; object-fit: cover; border: 2px solid #198754;">
+                     class="rounded-circle">
                 <!-- Camera Icon Overlay -->
-                <div style="
-                    position: absolute;
-                    bottom: 5px;
-                    right: 5px;
-                    background-color: #198754;
-                    color: white;
-                    border-radius: 50%;
-                    padding: 7px;
-                    font-size: 18px;
-                    box-shadow: 0 0 5px rgba(0,0,0,0.3);
-                ">
+                <div>
                     <i class="bi bi-camera-fill"></i>
                 </div>
             </label>
