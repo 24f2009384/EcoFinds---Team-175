@@ -33,11 +33,10 @@ This repository contains the foundational prototype developed for the EcoFinds c
 🛒 Cart & Purchase History
 •Add products to cart
 •View cart with product cards
-•Track previous purchases
 
 🛠 Tech Stack
 •Backend:Python, Flask, SQLAlchemy
-•Database: SQLLite
+•Database: SQLite
 •Frontend: HTML, CSS, Bootstrap
 
 
