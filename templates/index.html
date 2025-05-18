@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<!-- lead the user to login/signup -->
+<div class="text-center">
+    <h1>Welcome to EcoFinds</h1>
+    <p>Your sustainable second-hand marketplace.</p>
+
+    <p class="lead">Join us in promoting sustainability and reducing waste.</p>
+    <p class="lead">Sign up or log in to start buying and selling second-hand items.</p>
+    <a href="{{ url_for('login') }}" class="btn btn-primary">Log In</a>
+    <a href="{{ url_for('signup') }}" class="btn btn-secondary">Sign Up</a>
+    
+</div>
+{% endblock %}

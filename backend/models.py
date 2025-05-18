@@ -1,5 +1,5 @@
 # creation of the models for the database using SQLAlchemy
-from flask import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 

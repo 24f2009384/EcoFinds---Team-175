@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}About{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-center">About EcoFinds</h1>
+    <p class="lead text-center">EcoFinds is a sustainable second-hand marketplace that connects buyers and sellers of pre-loved items. Our mission is to promote sustainability, reduce waste, and create a community of eco-conscious individuals.</p>
+
+    <h2>Our Mission</h2>
+    <p>At EcoFinds, we believe in the power of second-hand shopping to make a positive impact on the environment. By facilitating the buying and selling of used items, we aim to reduce the demand for new products and minimize waste.</p>
+
+    <h2>Why Choose EcoFinds?</h2>
+    <ul>
+        <li><strong>Sustainability:</strong> Join us in our mission to promote sustainable living.</li>
+        <li><strong>Community:</strong> Connect with like-minded individuals who share your values.</li>
+        <li><strong>Convenience:</strong> Easily buy and sell items from the comfort of your home.</li>
+        <li><strong>Variety:</strong> Discover a wide range of pre-loved items at affordable prices.</li>
+    </ul>
+
+    <h2>Join Us</h2>
+    <p>If you're passionate about sustainability and want to make a difference, join us today! Sign up or log in to start buying and selling second-hand items.</p>
+
+    <div class="text-center">
+        <a href="{{ url_for('signup') }}" class="btn btn-primary">Sign Up</a>
+        <a href="{{ url_for('login') }}" class="btn btn-secondary">Log In</a>
+    </div>
+</div>
+{% endblock %}
