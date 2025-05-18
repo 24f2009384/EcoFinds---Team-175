@@ -129,8 +129,9 @@ def profile():
     if not user:
         flash('User not found.')
         return redirect(url_for('login'))
-    # Get the user's products
-    products = Product.query.filter_by(user_id=user.id).all()
+    # Get the all the products that others have uploaded too
+    products = Product.query.all()
+
     # Get the user's previous purchases
     previous_purchases = PreviousPurchase.query.filter_by(user_id=user.id).all()
     # Get the user's cart
