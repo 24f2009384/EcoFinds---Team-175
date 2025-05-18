@@ -1,19 +1,22 @@
 {% extends "base.html" %}
-{% block title %}Login Up{% endblock %}
+{% block title %}Log In{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
+<div class="login-container mt-4">
     <h1 class="text-center">Log In</h1>
     <form method="POST" action="{{ url_for('login') }}">
-        <!-- login with email and password -->
         <div class="mb-3">
             <label for="email" class="form-label">Email address</label>
             <input type="email" class="form-control" id="email" name="email" required>
+        </div>
         <div class="mb-3">
             <label for="password" class="form-label">Password</label>
             <input type="password" class="form-control" id="password" name="password" required>
         </div>
-        <!-- submit button -->
         <button type="submit" class="btn btn-primary">Log In</button>
     </form>
     <div class="mt-3">

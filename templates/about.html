@@ -1,8 +1,13 @@
 {% extends "base.html" %}
 {% block title %}About{% endblock %}
 
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
+<script src="{{ url_for('static', filename='js/about.js') }}" defer></script>
+{% endblock %}
+
 {% block content %}
-<div class="container mt-4">
+<div class="container mt-4 about-container">
     <h1 class="text-center">About EcoFinds</h1>
     <p class="lead text-center">EcoFinds is a sustainable second-hand marketplace that connects buyers and sellers of pre-loved items. Our mission is to promote sustainability, reduce waste, and create a community of eco-conscious individuals.</p>
 
@@ -17,12 +22,17 @@
         <li><strong>Variety:</strong> Discover a wide range of pre-loved items at affordable prices.</li>
     </ul>
 
+    <h2>Our Philosophy: The 3Rs</h2>
+    <p><strong>Reduce:</strong> By choosing second-hand goods, you reduce the demand for new production and conserve natural resources.</p>
+    <p><strong>Reuse:</strong> Reusing items extends their lifecycle and keeps them out of landfills.</p>
+    <p><strong>Recycle:</strong> Whenever possible, we encourage responsible recycling to give materials a second life and support circular economies.</p>
+
     <h2>Join Us</h2>
     <p>If you're passionate about sustainability and want to make a difference, join us today! Sign up or log in to start buying and selling second-hand items.</p>
 
-    <div class="text-center">
-        <a href="{{ url_for('signup') }}" class="btn btn-primary">Sign Up</a>
-        <a href="{{ url_for('login') }}" class="btn btn-secondary">Log In</a>
+    <div class="text-center mt-4">
+        <a href="{{ url_for('signup') }}" class="btn btn-primary me-2">Sign Up</a>
+        <a href="{{ url_for('login') }}" class="btn btn-outline-success">Log In</a>
     </div>
 </div>
 {% endblock %}

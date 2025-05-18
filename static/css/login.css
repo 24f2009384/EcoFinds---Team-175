@@ -1,0 +1,57 @@
+/* static/css/login.css */
+.login-container {
+    background-color: #f0fff4;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 128, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.login-container h1 {
+    color: #155724;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.login-container .form-label {
+    color: #19692c;
+    font-weight: 500;
+}
+
+.login-container .form-control {
+    border: 1px solid #c3e6cb;
+    border-radius: 6px;
+}
+
+.login-container .form-control:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+.login-container .btn-primary {
+    background-color: #28a745;
+    border-color: #28a745;
+    width: 100%;
+    font-weight: 600;
+}
+
+.login-container .btn-primary:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+.login-container .mt-3 p {
+    text-align: center;
+    color: #555;
+}
+
+.login-container a {
+    color: #155724;
+    text-decoration: none;
+}
+
+.login-container a:hover {
+    text-decoration: underline;
+}
