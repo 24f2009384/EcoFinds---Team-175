@@ -38,4 +38,7 @@ This repository contains the foundational prototype developed for the EcoFinds c
 🛠 Tech Stack
 •Backend:Python, Flask, SQLAlchemy
 •Database: SQLLite
-•Frontend (Optional): HTML,CSS
+•Frontend: HTML, CSS, Bootstrap
+
+
+Demo Video Explanation of the Prototype: https://drive.google.com/file/d/1gGFl7GGxawJfl4Zn40Lq1Jen_Q-DeZun/view?usp=drivesdk
