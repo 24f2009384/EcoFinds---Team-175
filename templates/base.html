@@ -25,9 +25,22 @@
                 <li class="nav-item">
                     <a class="nav-link text-white" href="{{ url_for('about') }}">About</a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ url_for('login') }}" class="btn btn-outline-light">Login</a>
-                </li>
+                <!-- if user id is in session conditional display of login/logout -->
+                {% if session.get('user_id') %}
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ url_for('profile') }}">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ url_for('logout') }}">Logout</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ url_for('login') }}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-light rounded-pill px-4" href="{{ url_for('signup') }}">Sign Up</a>
+                    </li>
+                {% endif %}
 
             </ul>
         </div>

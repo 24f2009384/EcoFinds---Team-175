@@ -2,6 +2,13 @@ from flask import Flask, render_template, session, redirect, url_for, request, f
 from backend import models
 from backend.models import *
 import os
+from werkzeug.utils import secure_filename
+from datetime import datetime
+
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 app = Flask(__name__)
 app.secret_key = 'team175secretkey'
@@ -128,29 +135,70 @@ def profile():
     previous_purchases = PreviousPurchase.query.filter_by(user_id=user.id).all()
     # Get the user's cart
     cart = Cart.query.filter_by(user_id=user.id).all()
-    return render_template('profile.html', user=user, products=products, previous_purchases=previous_purchases, cart=cart)
+    return render_template('profile.html', user=user, products=products, previous_purchases=previous_purchases, cart=cart, )
 
 
 @app.route('/sell', methods=['GET', 'POST'])
 def sell():
-    # Check if the user is logged in
     if 'user_id' not in session:
         flash('You need to log in first.')
         return redirect(url_for('login'))
+
     if request.method == 'POST':
         name = request.form['name']
         description = request.form['description']
         price = request.form['price']
-        image_url = request.form['image_url']
         city = request.form['city']
         user_id = session['user_id']
-        # Create a new product
-        new_product = Product(name=name, description=description, price=price, image_url=image_url, city=city, user_id=user_id)
+
+        file = request.files.get('image_file')
+
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            save_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            
+            # Create folder if doesn't exist
+            if not os.path.exists(app.config['UPLOAD_FOLDER']):
+                os.makedirs(app.config['UPLOAD_FOLDER'])
+                
+            file.save(save_path)
+
+            image_url = f'assets/{filename}'  # path relative to 'static'
+
+        else:
+            flash('Please upload a valid image file.')
+            return redirect(request.url)
+
+        date_added = datetime.now()
+
+        new_product = Product(
+            name=name,
+            description=description,
+            price=price,
+            city=city,
+            user_id=user_id,
+            image_url=image_url,
+            date_added=date_added
+        )
         db.session.add(new_product)
         db.session.commit()
+
         flash('Product added successfully.')
         return redirect(url_for('profile'))
+
     return render_template('sell.html')
+
+
+@app.route('/product/<int:product_id>')
+def product_details(product_id):
+    product = Product.query.get_or_404(product_id)
+    return render_template('product.html', product=product)
+
+
+
+
+
+
 
 
 
