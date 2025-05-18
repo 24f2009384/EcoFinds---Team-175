@@ -3,10 +3,23 @@
 
 {% block content %}
 <div class="container mt-5">
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-8 text-center">
+            <h1>Welcome, {{ user.name }}!</h1>
+            <p>Buy and sell products with just a tap of a finger!</p>
+        </div>
+    </div>
+
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <h1 class="text-center">Welcome, {{ user.username }}!</h1>
-            <p class="text-center">Buy and sell products with just a tap of a finger!</p>
+        <div class="col-md-4 d-grid mb-3">
+            <a href="{{ url_for('index') }}" class="btn btn-success btn-lg">
+                🛒 Buy Products
+            </a>
+        </div>
+        <div class="col-md-4 d-grid mb-3">
+            <a href="{{ url_for('sell') }}" class="btn btn-primary btn-lg">
+                💰 Sell Product
+            </a>
         </div>
     </div>
 </div>

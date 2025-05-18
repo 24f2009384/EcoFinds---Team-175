@@ -65,6 +65,8 @@ def signup():
         city = request.form['city']
         phone_number = request.form['phone_number']
         name = request.form['name']
+        # set profile picture
+        profile_picture = request.form['profile_picture']
         # Check if the email already exists
         existing_user = User.query.filter_by(email=email).first()
         if existing_user:
@@ -72,7 +74,7 @@ def signup():
             return redirect(url_for('login'))
         
         # Create a new user
-        new_user = User(username=username, email=email, password=password, city=city, phone_number=phone_number, name=name)
+        new_user = User(username=username, email=email, password=password, city=city, phone_number=phone_number, name=name, profile_picture=profile_picture)
         db.session.add(new_user)
         db.session.commit()
         flash('User created successfully. Please log in.')
@@ -123,6 +125,30 @@ def profile():
     # Get the user's cart
     cart = Cart.query.filter_by(user_id=user.id).all()
     return render_template('profile.html', user=user, products=products, previous_purchases=previous_purchases, cart=cart)
+
+
+@app.route('/sell', methods=['GET', 'POST'])
+def sell():
+    # Check if the user is logged in
+    if 'user_id' not in session:
+        flash('You need to log in first.')
+        return redirect(url_for('login'))
+    if request.method == 'POST':
+        name = request.form['name']
+        description = request.form['description']
+        price = request.form['price']
+        image_url = request.form['image_url']
+        city = request.form['city']
+        user_id = session['user_id']
+        # Create a new product
+        new_product = Product(name=name, description=description, price=price, image_url=image_url, city=city, user_id=user_id)
+        db.session.add(new_product)
+        db.session.commit()
+        flash('Product added successfully.')
+        return redirect(url_for('profile'))
+    return render_template('sell.html')
+
+
 
 
 if __name__ == '__main__':

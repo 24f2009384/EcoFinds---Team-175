@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Sell a Product{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Sell a Product</h2>
+    <form method="POST" action="{{ url_for('sell') }}" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="name" class="form-label">Product Name</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Enter product name" required>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Product Description</label>
+            <textarea class="form-control" id="description" name="description" rows="3" placeholder="Describe your product" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="price" class="form-label">Price (in USD)</label>
+            <input type="number" class="form-control" id="price" name="price" placeholder="Set a price" min="0" step="0.01" required>
+        </div>
+        <div class="mb-3">
+            <label for="image_file" class="form-label">Upload Product Image</label>
+            <input type="file" class="form-control" id="image_file" name="image_file" accept="image/*" required>
+            <img id="imagePreview" src="#" alt="Image Preview" class="img-thumbnail mt-3" style="display: none; max-width: 200px;">
+        </div>
+        <div class="mb-3">
+            <label for="city" class="form-label">City</label>
+            <input type="text" class="form-control" id="city" name="city" placeholder="Your city" required>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Add Product</button>
+    </form>
+</div>
+
+<script>
+    const imageFileInput = document.getElementById('image_file');
+    const imagePreview = document.getElementById('imagePreview');
+
+    imageFileInput.addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block';
+            }
+            reader.readAsDataURL(file);
+        } else {
+            imagePreview.style.display = 'none';
+        }
+    });
+</script>
+{% endblock %}
