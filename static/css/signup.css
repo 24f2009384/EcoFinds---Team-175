@@ -1,0 +1,82 @@
+/* General page settings */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f8f9fa;
+}
+
+/* Sign-up container */
+.container {
+    max-width: 600px;
+    margin: 100px auto;
+    background-color: white;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 128, 0, 0.1);
+}
+
+/* Title */
+h1.text-center {
+    color: #198754;
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+/* Input styling */
+.form-control {
+    border: 1px solid #c3e6cb;
+    border-radius: 6px;
+}
+
+.form-control:focus {
+    border-color: #198754;
+    box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25);
+}
+
+/* Button */
+.btn-primary {
+    background-color: #198754;
+    border-color: #198754;
+    font-weight: 600;
+    width: 100%;
+}
+
+.btn-primary:hover {
+    background-color: #157347;
+    border-color: #146c43;
+}
+
+/* Profile picture upload */
+.mb-3.text-center {
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.mb-3.text-center img {
+    border: 3px solid #198754;
+    transition: 0.3s;
+}
+
+.mb-3.text-center img:hover {
+    filter: brightness(0.9);
+    cursor: pointer;
+}
+
+/* Camera overlay icon */
+.mb-3.text-center div i.bi {
+    pointer-events: none;
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+    .container {
+        margin: 50px 20px;
+        padding: 2rem 1.2rem;
+    }
+
+    .mb-3.text-center img {
+        width: 100px;
+        height: 100px;
+    }
+}

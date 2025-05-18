@@ -19,7 +19,7 @@
     {% for item in items %}
     <div class="col-md-4">
         <div class="card h-100 shadow-sm">
-            <img src="{{ item.image_url or url_for('static', filename='img/placeholder.png') }}" class="card-img-top" alt="Product Image" />
+            <img src="{{ item.image_url or url_for('static', filename='assests/placeholder.png') }}" class="card-img-top" alt="Product Image" />
             <div class="card-body">
                 <h5 class="card-title fw-bold">₹ {{ item.price }}</h5>
                 <p class="card-text">{{ item.title }}</p>

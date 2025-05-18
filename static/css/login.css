@@ -1,4 +1,13 @@
-/* static/css/login.css */
+
+/* need to add a background image in the login page */
+body {
+    background-image: url('../assests/login.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+
 .login-container {
     background-color: #f0fff4;
     max-width: 500px;
@@ -7,6 +16,7 @@
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 128, 0, 0.1);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
 }
 
 .login-container h1 {
