@@ -20,11 +20,13 @@
            </a>
 
 
-            <!-- Search -->
-            <form class="d-flex" action="{{ url_for('search') }}" method="GET">
-                <input class="form-control me-2" type="search" name="query" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+             {% if request.endpoint not in ['login', 'signup', 'about','sell','edit_profile'] %}
+                <!-- Search -->
+                <form class="d-flex" action="{{ url_for('search') }}" method="GET">
+                    <input class="form-control me-2" type="search" name="query" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            {% endif %}
 
             <!-- Right links -->
             <ul class="navbar-nav align-items-center flex-row gap-3">
