@@ -1,4 +1,16 @@
 /* static/css/about.css */
+  body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f8f9fa;
+      background-image: url('/static/assets/about.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+  }
+
+
 .about-container {
     background-color: #f4fff6;
     padding: 2rem;
