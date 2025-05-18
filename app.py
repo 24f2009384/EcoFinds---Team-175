@@ -61,7 +61,7 @@ def index():
                 'image_url': '/static/assets/hp.png'
             }
            ]
-    return render_template('index.html', items = items)
+    return render_template('index.html', items=items)
 
 @app.route('/about')
 def about():
@@ -194,6 +194,98 @@ def sell():
 def product_details(product_id):
     product = Product.query.get_or_404(product_id)
     return render_template('product.html', product=product)
+
+@app.route('/add_to_cart/<int:product_id>')
+def add_to_cart(product_id):
+    if 'user_id' not in session:
+        flash('You need to log in first.')
+        return redirect(url_for('login'))
+
+    user_id = session['user_id']
+    existing_cart_item = Cart.query.filter_by(user_id=user_id, product_id=product_id).first()
+
+    if existing_cart_item:
+        flash('Product already in cart.')
+    else:
+        new_cart_item = Cart(user_id=user_id, product_id=product_id)
+        db.session.add(new_cart_item)
+        db.session.commit()
+        flash('Product added to cart.')
+
+    return redirect(url_for('profile'))
+
+@app.route('/add_static_to_cart/<int:product_id>')
+def add_static_to_cart(product_id):
+    if 'user_id' not in session:
+        flash('Please log in first.')
+        return redirect(url_for('login'))
+
+    if 'cart' not in session:
+        session['cart'] = []
+
+    if product_id not in session['cart']:
+        session['cart'].append(product_id)
+        session.modified = True
+        flash('Product added to cart.')
+    else:
+        flash('Product already in cart.')
+
+    return redirect(url_for('index'))
+
+@app.route('/remove_from_cart_static/<int:product_id>')
+def remove_from_cart_static(product_id):
+    if 'user_id' not in session:
+        flash('Please log in first.')
+        return redirect(url_for('login'))
+
+    if 'cart' in session and product_id in session['cart']:
+        session['cart'].remove(product_id)
+        session.modified = True
+        flash('Product removed from cart.')
+    else:
+        flash('Product not found in cart.')
+
+    return redirect(url_for('index'))
+
+@app.route('/static_product_details/<int:product_id>')
+def static_product_details(product_id):
+    if 'user_id' not in session:
+        flash('Please log in first.')
+        return redirect(url_for('login'))
+
+    product = Product.query.get_or_404(product_id)
+    return render_template('static_product.html', product=product)
+
+
+@app.route('/view_cart')
+def view_cart():
+    if 'user_id' not in session:
+        flash('You need to log in first.')
+        return redirect(url_for('login'))
+    user_id = session['user_id']
+    cart_items = Cart.query.filter_by(user_id=user_id).all()
+    products = [Product.query.get(item.product_id) for item in cart_items]
+    return render_template('cart.html', products=products)
+
+@app.route('/remove_from_cart/<int:product_id>')
+def remove_from_cart(product_id):
+    if 'user_id' not in session:
+        flash('You need to log in first.')
+        return redirect(url_for('login'))
+
+    user_id = session['user_id']
+    cart_item = Cart.query.filter_by(user_id=user_id, product_id=product_id).first()
+
+    if cart_item:
+        db.session.delete(cart_item)
+        db.session.commit()
+        flash('Product removed from cart.')
+    else:
+        flash('Product not found in cart.')
+
+    return redirect(url_for('view_cart'))
+
+
 
 
 
