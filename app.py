@@ -1,9 +1,13 @@
 from flask import Flask, render_template, session, redirect, url_for, request, flash
 from backend import models
 from backend.models import *
+import os
+
 app = Flask(__name__)
 app.secret_key = 'team175secretkey'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
+app.config['UPLOAD_FOLDER'] = os.path.join('static', 'assets')
+
 db.init_app(app)
 
 with app.app_context():
